@@ -5,7 +5,6 @@ var app = angular.module('app', []);
 app.controller('newsCtrl', ['$scope', function($scope) {
 
     $scope.list = false;
-    $scope.message = 'Hover Me!!!';
     $scope.posts = [
         {
             id: 1,
