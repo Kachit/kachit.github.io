@@ -1,66 +1,29 @@
 'use strict';
 
-var app = angular.module('app', []);
+var servicesFactory = angular.module('servicesFactory', []);
 
-app.controller('newsCtrl', ['$scope', function($scope) {
-
-    $scope.list = false;
-    $scope.posts = [
-        {
-            id: 1,
-            title: 'name1',
-            active: false,
-            text: 'text1'
-        },
-        {
-            id: 2,
-            title: 'name2',
-            active: false,
-            text: 'text3'
-        },
-        {
-            id: 3,
-            title: 'name3',
-            active: true,
-            text: 'text3'
-        },
-        {
-            id: 5,
-            title: 'name5',
-            active: false,
-            text: 'text5'
-        },
-        {
-            id: 6,
-            title: 'name6',
-            active: true,
-            text: 'text6'
-        },
-        {
-            id: 4,
-            title: 'name4',
-            active: true,
-            text: 'text4'
-        }
+servicesFactory.service('newsService', function(){
+    var news = [
+        {title: 123},
+        {title: 231},
+        {title: 456},
+        {title: 789}
     ];
-
-    $scope.getFileName = function() {
-        return ($scope.list) ? '/html/list.html' : '/html/table.html';
+    return {
+        add: function(item) {
+            news.push(item);
+            return this;
+        },
+        getList: function() {
+            return news;
+        }
     };
+});
 
-    $scope.addNewUser = function() {
-        alert(123);
-    };
+var app = angular.module('app', ['servicesFactory']);
 
-    $scope.newUser = {};
-
-    $scope.message = "Ready";
+app.controller('newsCtrl', ['$scope', 'newsService', function($scope, newsService) {
+    newsService.add({title:258}).add({title:753});
+    $scope.news = newsService.getList();
 }]);
 
-app.directive('tap', function(){
-    return function (scope, elem, attrs){
-        elem.on('mouseenter', function() {
-            scope.$apply(attrs['tap']);
-        });
-    }
-});
