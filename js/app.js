@@ -27,3 +27,53 @@ app.controller('newsCtrl', ['$scope', 'newsService', function($scope, newsServic
     $scope.news = newsService.getList();
 }]);
 
+var router = new Router();
+
+
+function Router() {
+    var baseUrl = '';
+    var routes = new RoutesCollection();
+
+    return {
+        setBaseUrl: function(url) {
+            baseUrl = url;
+            return this;
+        },
+        getBaseUrl: function() {
+            return baseUrl;
+        },
+        addRoute: function(route) {
+            routes.add(route);
+            return this;
+        },
+        getRoute: function (name) {
+
+        }
+    }
+}
+
+function RoutesCollection() {
+    var routes = {};
+    return {
+        add: function(route) {
+            routes.push(route);
+        },
+        get: function (name) {
+            return routes[name];
+        },
+        getList: function() {
+            return routes;
+        }
+    }
+}
+
+function Route() {
+    var controller;
+    var action;
+    var params = [];
+
+    this.generate = function () {
+        return controller + '/' + action;
+    }
+}
+
