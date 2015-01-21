@@ -71,9 +71,5 @@ function Route() {
     var controller;
     var action;
     var params = [];
-
-    this.generate = function () {
-        return controller + '/' + action;
-    }
 }
 
